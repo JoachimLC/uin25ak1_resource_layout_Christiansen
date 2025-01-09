@@ -1,36 +1,51 @@
+/*koden er inspirert av denne tutorialen, og jeg har hentet herfra for å få fane funkjsonalitet.
+
+https://www.w3schools.com/howto/howto_js_tabs.asp */
+
 body {
- background-color: #E1E5EE;
-}
+    background-color: #E1E5EE;
+    font-family: "Montserrat";
+   }
+   
 
 .tab-system-wrapper {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 14.5rem;
+    column-gap: 10px;
+    justify-content: space-between; 
+    background-color: #f1f1f1;
+    margin: 10.5rem;
+    flex-wrap: wrap; 
 }
 
-.content {
-    display: none;
-    background-color: #fff;
-    padding: 6px 12px;
-    clear: both;
-    box-sizing: border-box;
-    width: 100%;
-}
-  
-.button {
+.tablinks {
     color: #fff;
     background-color: #2A324B;
+    flex: 1; 
     border: none;
-    padding: 30px;
-    box-sizing: border-box;
-    margin-inline-end: 0.5rem;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    transition: 0.3s;
+    font-weight: bold;
+
+    
 }
 
-.button.active{
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+.tablinks.active {
     color: black;
     background-color: #fff;
-    float: left;
-    border: none;
+}
 
+.tabcontent {
+    background-color: #fff;
+    font-size: small;
+    display: none;
+    padding: 50px 50px;
+    padding-right: 15rem;
+    border-top: none;
+    clear: both;
 }
