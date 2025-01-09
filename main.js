@@ -6,7 +6,7 @@ import resources from "./ressurser.js";
 
 let tab_system_wrapper = document.getElementById("tab-system-wrapper");
 
-resources.forEach((item) => {
+resources.map((item) => {
     let button = document.createElement("button");
     button.classList.add("tablinks");
     button.innerText = item.category;
@@ -16,35 +16,43 @@ resources.forEach((item) => {
     tab_system_wrapper.appendChild(button);
 });
 
-resources.forEach((item) => {
-    let article = document.createElement("article");
-    article.classList.add("tabcontent");
-    article.dataset.category = item.category; 
+function createArticle(category) {
 
-    let category = document.createElement("h3");
-    category.innerText = item.category;
-    article.appendChild(category);
+    if (!document.querySelector(`article[data-category="${category}"]`)) {
+        resources.filter((item) => item.category === category)
+        .map((item) => {
+            let article = document.createElement("article");
+            article.classList.add("tabcontent");
+            article.dataset.category = item.category; 
 
-    let text = document.createElement("p");
-    text.innerText = item.text;
-    article.appendChild(text);
+            let categoryTitle = document.createElement("h3");
+            categoryTitle.innerText = item.category;
+            article.appendChild(categoryTitle);
 
-    let ul = document.createElement("ul");
-    item.sources.forEach((src) => {
-        let li = document.createElement("li");
-        let link = document.createElement("a");
-        link.href = src.url;
-        link.innerText = src.title;
+            let text = document.createElement("p");
+            text.innerText = item.text;
+            article.appendChild(text);
 
-        li.appendChild(link);
-        ul.appendChild(li);
-    });
+            let ul = document.createElement("ul");
+            item.sources.map((src) => {
+                let li = document.createElement("li");
+                let link = document.createElement("a");
+                link.href = src.url;
+                link.innerText = src.title;
 
-    article.appendChild(ul);
-    tab_system_wrapper.appendChild(article);
-});
+                li.appendChild(link);
+                ul.appendChild(li);
+            });
+
+            article.appendChild(ul);
+            tab_system_wrapper.appendChild(article);
+        });
+    }
+}
 
 function open(event, category) {
+    createArticle(category);
+
     document.querySelectorAll("article.tabcontent").forEach((article) => {
         article.style.display = "none";
     });
@@ -58,4 +66,6 @@ function open(event, category) {
     event.target.classList.add("active");
 }
 
+
+createArticle("HTML")
 document.querySelector(".tablinks").click();
